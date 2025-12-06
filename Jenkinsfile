@@ -1,18 +1,20 @@
 pipeline {
-agent any
- enviroment{
-Docker _hub_repo ="srinubabu1996/2150_living_parallex"
-IMAGE-TAG =LATEST"
+    agent any
+    
+    environment {
+        DOCKER_HUB_REPO = "srinubabu1996/2150_living_parallex"
+        IMAGE_TAG = "latest"
+    }
 
-}
-stages{
-stage(checkout out ){
-steps{
-git branch :'main'
-url :'https://github.com/srinivas-bollam/real-time-project.git'
-     }
-}
- stage('Build Docker Image') {
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/srinivas-bollam/real-time-project.git'
+            }
+        }
+
+        stage('Build Docker Image') {
             steps {
                 script {
                     echo "Building Docker Image: ${env.DOCKER_HUB_REPO}:${env.IMAGE_TAG}"
